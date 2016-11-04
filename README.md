@@ -1,7 +1,4 @@
-Alt-H1
-======
-
-Alt-H2
+test
 ------
 <h3>colorsGrid</h3>
 <blockquote>v 1.0</blockquote>
