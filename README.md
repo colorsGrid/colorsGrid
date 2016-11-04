@@ -12,11 +12,11 @@ colors grid is a lite javascript plugin will make you able to easily store your 
  * debug mode
  
 # Setup
- 1. ### javscript
+ 1. #### javscript
     import ColorsGrid.js before body closing tag
-    `
+    ```javscript
     <script src="colorsGrid.js"></script>
-    `
+    ```
     
- 2. ### HTML
+ 2. #### HTML
     
