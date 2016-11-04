@@ -129,14 +129,15 @@ function colorsGrid(selector, {}) {
         function createNav() {
 
             /* 
-             * navigation holder
              * if not defined nav items will be disabled
              * @type {DOM element}
             */
             var navItemsContainer = opts.navItemsContainer,
-
+                /* 
+                 * navigation outer HTML
+                 * @type {String}
+                */
                 navOuterHTML = '<div id="color-navigation"><ul><li data-color-pattern="hex" class="active-pattern">hex</li> <li data-color-pattern="rgb">rgb</li> <li data-color-pattern="rgba">rgba</li> </ul></div>';
-
             // prepend navigation html to nav items container
             navItemsContainer.insertAdjacentHTML('afterbegin', navOuterHTML);
         }
