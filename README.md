@@ -12,7 +12,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
  * Debug mode
  
 ## Installation
- 1. #### Setup JavScript
+ 1. #### Setup JavaScript
  Import plugin file before body closing tag
     ```html
     <script src="colorsGrid.js"></script>
@@ -20,14 +20,14 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
     
  2. #### Setup HTML
  Make a container with unique attribute and items to hold colors
- ```html
- <div id="container">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
- </div>
- ```
+   ```html
+   <div id="container">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+   </div>
+   ```
  
  3. #### Call Colors Grid plugin
  Select the container id and it's items to apply plugin on them
