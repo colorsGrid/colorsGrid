@@ -1,9 +1,8 @@
 
-<h3>ColorsGrid</h3>
-<blockquote>V 1.0</blockquote>
+### ColorsGrid
+> V 1.0
 ------
-###h3 Description
-<p>
-colors grid is a lite javascript plugin will make you able to easily store your favorite colors/switch between patterns and copy it with one click.
-</p>
-<blockquote>features<blockquote>
+### Description
+... colors grid is a lite javascript plugin will make you able to easily store your favorite colors/switch between patterns and copy it with one click.
+
+> features
