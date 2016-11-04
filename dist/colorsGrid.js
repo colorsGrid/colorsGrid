@@ -121,25 +121,24 @@ function colorsGrid(selector, {}) {
 
     /* Navigation for color patterns
     -----------------------------------
-      * create nav html and prepend it to navItemsContainer
+      * create nav html and prepend it to navContainer
       * change color pattern when click on navigation item
     --------------------------------------------------------- */ 
 
-    if (opts.navItemsContainer != undefined || null) {
+    if (opts.navContainer != undefined || null) {
         function createNav() {
 
             /* 
+             * navigation holder
              * if not defined nav items will be disabled
              * @type {DOM element}
             */
-            var navItemsContainer = opts.navItemsContainer,
-                /* 
-                 * navigation outer HTML
-                 * @type {String}
-                */
+            var navContainer = opts.navContainer,
+
                 navOuterHTML = '<div id="color-navigation"><ul><li data-color-pattern="hex" class="active-pattern">hex</li> <li data-color-pattern="rgb">rgb</li> <li data-color-pattern="rgba">rgba</li> </ul></div>';
+
             // prepend navigation html to nav items container
-            navItemsContainer.insertAdjacentHTML('afterbegin', navOuterHTML);
+            navContainer.insertAdjacentHTML('afterbegin', navOuterHTML);
         }
         createNav();
 
@@ -238,10 +237,16 @@ function colorsGrid(selector, {}) {
         */
 
         if (opts.stickyNav) {
-            var navOT = colorNav.offsetTop;
+
+            var navOT = opts.navContainer.getBoundingClientRect().top;
+
+            window.addEventListener('resize', function () {
+                navOT = opts.navContainer.getBoundingClientRect().top;
+            });
+
             // sticky nav if scrollTop equal to or greater than ul offsetTop
             window.addEventListener('scroll', function(e) {
-                if (window.pageYOffset >= 100) {
+                if (window.pageYOffset >= navOT) {
                     colorNav.classList.add('sticky-nav');
                 } else {
                     colorNav.classList.remove('sticky-nav');
@@ -273,7 +278,7 @@ function colorsGrid(selector, {}) {
     if (opts.overlayState) {
         // insert overlay after each colorsGridArray
         for (var co = 0, col = colorsGridArray.length; co < col; co++) {
-            colorsGridArray[co].insertAdjacentHTML('afterend', '<div class="colorsGrid-overlay"><span>copy</span><span class="copy-state">copied!</span></div>');
+            colorsGridArray[co].insertAdjacentHTML('afterend', '<div class="colorsGrid-overlay"><span class="copy-state">copied!</span><span>copy</span></div>');
         }
 
         var colorsGridOverlay = document.getElementsByClassName('colorsGrid-overlay'),
@@ -346,7 +351,7 @@ function colorsGrid(selector, {}) {
             bgColor: opts.textBoxBackgroundColor ? opts.textBoxBackgroundColor : 'rgba(0,0,0,.3)',
             fontSize: opts.textBoxFontSize ? opts.textBoxFontSize : '24px',
             color: opts.textBoxColor ? opts.textBoxColor : 'rgba(255,255,255,.9)',
-            boxShadow: opts.textBoxBoxShadow ? opts.textBoxBoxShadow : '0 0 0 0 rgb(0,0,0)',
+            boxShadow: opts.textBoxBoxShadow ? opts.textBoxBoxShadow : '0 0 0 0 rgba(0,0,0,0)',
             borderRadius: opts.textBoxBorderRadius ? opts.textBoxBorderRadius : '0',
             transition: opts.textBoxTransition ? opts.textBoxTransition : 'all .4s ease',
         };
@@ -388,16 +393,16 @@ function colorsGrid(selector, {}) {
 
         //set overlay textBox value ( setted from opts.defaultPattern )
         for (var olt = 0, oltl = colorsGridOverlay.length; olt < oltl; olt++) {
-            colorsGridOverlay[olt].getElementsByTagName('span')[0].textContent =
+            colorsGridOverlay[olt].getElementsByTagName('span')[1].textContent =
                         colorsGridArray[olt].getAttribute('data-'+activePattern+'-color');
         }
 
-        if (opts.navItemsContainer) {
+        if (opts.navContainer) {
             //change overlay textBox/s value when click on nav item
             for (var ni = 0, nil = navItems.length; ni < nil; ni++) {
                 navItems[ni].addEventListener('click', function () {
                     for (var nit = 0, nitl = colorsGridOverlay.length; nit < nitl; nit++) {
-                        colorsGridOverlay[nit].getElementsByTagName('span')[0].textContent =
+                        colorsGridOverlay[nit].getElementsByTagName('span')[1].textContent =
                         colorsGridArray[nit].getAttribute('data-'+activePattern+'-color');
                     }
                 });
@@ -406,15 +411,16 @@ function colorsGrid(selector, {}) {
 
         // copied message default style/copied animation
         if (opts.copiedMessage) {
-            copiedMsgStyle = '.copy-state{opacity:0;z-index:-1;}.copy-state.copied{animation:copied 1s ease;}@keyframes copied {0%{opacity:0;z-index:-1;}50%{opacity:1;z-index:1;}100%{opacity:0;z-index:-1;top:-10%;}@-webkit-keyframes copied {0%{opacity:0;z-index:-1;}50%{opacity:1;z-index:1;}100%{opacity:0;z-index:-1;top:-10%;}}';
+            copiedMsgStyle = '.copy-state{opacity:0;z-index:-1;}.copy-state.copied{index:1;opacity:1;}.copy-state.copied+span{index:-1;opacity:0;}';
         }
     }
+
     // add copied class to .copy-state when click on grid items/overlay
     function addCopiedClassTo(clickedElem) {
         if (opts.copiedMessage) {
-            clickedElem.getElementsByTagName('span')[1].classList.add('copied');
+            clickedElem.getElementsByTagName('span')[0].classList.add('copied');
             setTimeout(()=>{
-                clickedElem.getElementsByTagName('span')[1].classList.remove('copied');
+                clickedElem.getElementsByTagName('span')[0].classList.remove('copied');
             }, 1000);
         }
     }
@@ -458,7 +464,7 @@ function colorsGrid(selector, {}) {
     }
     // append default style
     (function() {
-        var defaultStyle = "<style type='text/css'>.colorsGrid-item{display:inline-block;position:relative;}#color-navigation{position:relative;"+navContStyle+"margin:0 auto;text-align:center;}#color-navigation ul{width:100%;height:inherit;position:absolute;top:0%;}#color-navigation ul.sticky-nav{z-index:99999;position:fixed;top:0;left:0;"+stickyNavStyle+"}#color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}#color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}#color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}#color-navigation li:hover{"+navItemActiveStyle+"}#color-navigation li.active-pattern{box-shadow:0 0 2px 1px #0bbcd6;color:#0bbcd6;}.colorsGrid-overlay{position:absolute;text-align:center;"+overlayAlignProps+overlayStyle+"}.colorsGrid-overlay:hover{opacity:1;"+overlayHoverStyle+"}.colorsGrid-overlay span{display:inline-block;"+overlayTextBox+"position:absolute;top:50%; left:50%;transform:translateZ(1px)translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)translateZ(1px);text-align:center;}.colorsGrid-overlay span:hover{"+overlayTextBoxHoverStyle+"}"+copiedMsgStyle+"</style>";
+        var defaultStyle = "<style type='text/css'>.colorsGrid-item{display:inline-block;position:relative;}#color-navigation{position:relative;"+navContStyle+"margin:0;text-align:center;}#color-navigation ul{width:100%;height:inherit;margin:0;position:absolute;top:0%;}#color-navigation ul.sticky-nav{z-index:99999;margin:0;position:fixed;top:0;left:0;"+stickyNavStyle+"}#color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}#color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}#color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}#color-navigation li:hover{"+navItemActiveStyle+"}#color-navigation li.active-pattern{box-shadow:0 0 2px 1px #0bbcd6;color:#0bbcd6;}.colorsGrid-overlay{position:absolute;text-align:center;"+overlayAlignProps+overlayStyle+"}.colorsGrid-overlay:hover{opacity:1;"+overlayHoverStyle+"}.colorsGrid-overlay span{display:inline-block;"+overlayTextBox+"position:absolute;top:50%; left:50%;transform:translateZ(1px)translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)translateZ(1px);text-align:center;}.colorsGrid-overlay span:hover{"+overlayTextBoxHoverStyle+"}"+copiedMsgStyle+"</style>";
         document.head.insertAdjacentHTML('beforeend', defaultStyle);
     }());
 
