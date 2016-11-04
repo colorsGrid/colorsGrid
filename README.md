@@ -3,20 +3,34 @@
   > V 1.0
   
 ### Description
-colors grid is a lite javascript plugin will make you able to easily store your favorite colors/switch between patterns and copy it with one click.
+Colors Grid is a lite javascript plugin will make you able to easily store your favorite colors/switch between patterns and copy it with one click.
 
 ## Features
- * switch between color patterns (hex/rgb/rgba)
- * copy stored color with one click
- * sticky nav
- * debug mode
+ * Switch between color patterns (hex/rgb/rgba)
+ * Copy stored color with one click
+ * Sticky nav
+ * Debug mode
  
-# Setup
- 1. #### javscript
-    import ColorsGrid.js before body closing tag
-    ```javscript
+## Installation
+ 1. #### Setup JavScript
+ Import plugin file before body closing tag
+    ```html
     <script src="colorsGrid.js"></script>
     ```
     
- 2. #### HTML
-    
+ 2. #### Setup HTML
+ Make a container with unique attribute and items to hold colors
+ ```html
+ <div id="container">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+ </div>
+ ```
+ 
+ 3. #### Call Colors Grid plugin
+ Select the container id and it's items to apply plugin on them
+    ```javascript
+    colorsGrid(document.getElementById('container').getElementsByTagName('div') , { options });
+    ```
