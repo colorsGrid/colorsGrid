@@ -39,9 +39,9 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
   ---------- | ------ | --------------- | -------------
   gridItems  | Object |     null        | This allows you to add a color for specified element by setting element index as key and it's hex color as a value. you can get element index by enabling debug_mode. Example: gridItems:{1: '#0ff'}.
  
-  navContainer  |  Dom Element  |  null  |  Container to prepend navigation hex/rgb/rgba switcher to it. if not setted, navigation will be disabled.
+  navContainer | Dom Element | null | Container to prepend navigation hex/rgb/rgba switcher to it. if not setted, navigation will be disabled.
   
-  stickyNav  |  Boolean  |  true  |  To make navigation fixed when scrollTop equal or greater than it's clientBoundingRect top.
+  stickyNav |  Boolean  |  true  |  To make navigation fixed when scrollTop equal or greater than it's clientBoundingRect top.
   
   stickyNavBackgroundColor |  String  |  'rgba(255,255,255,.8)'  |  Sticky background color
   
