@@ -31,6 +31,6 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
  
  3. #### Call Colors Grid plugin
  Select the container id and it's items to apply plugin on them
-    ```javascript
-    colorsGrid(document.getElementById('container').getElementsByTagName('div') , { options });
-    ```
+  ```javascript
+  colorsGrid(document.getElementById('container').getElementsByTagName('div') , { options });
+  ```
