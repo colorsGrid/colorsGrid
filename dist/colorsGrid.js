@@ -1,4 +1,3 @@
-
 function colorsGrid(selector, {}) {
 
     //insert each color element into container
@@ -26,7 +25,6 @@ function colorsGrid(selector, {}) {
 
     // insert each element in container
     // get default width/height/margin of each element to clone it to it's new container
-
     for ( var el = 0; el < sl; el++) {
         var cge = colorsGridArray[el],
             cgeW = cge.clientWidth + 'px',
@@ -42,7 +40,7 @@ function colorsGrid(selector, {}) {
         cge.style.margin = '0';
 
         if (opts.autoBackgroundColor) {
-            cge.style.backgroundColor = opts.itemsColor[el].hex;
+            cge.style.backgroundColor = opts.gridItems[el].hex;
         }
 
         cge.insertAdjacentHTML('beforebegin', '<div class="colorsGrid-item"></div>');
@@ -58,7 +56,19 @@ function colorsGrid(selector, {}) {
         cgi.style.marginLeft = cgeMLeft;
     }
 
-
+    
+    // put items hex color in opject if type of color === string
+    // to insert rgb/rgba with it
+    for (var item in opts.gridItems) {
+        // continue if item value is an object 
+        if (typeof opts.gridItems[item] === 'object') {
+            continue;
+        } else {
+            // put items value in object with hex key
+            opts.gridItems[item] = {hex: opts.gridItems[item]};
+        }
+    }
+    
 
     function hextoRGB (pattern) {
         var hexArray = pattern.split(''),
@@ -95,15 +105,15 @@ function colorsGrid(selector, {}) {
     }
 
     /**
-     * convert hex to rgb and add it to itemsColor object
-     * convert rgb to rgba and add it to itemsColor object
+     * convert hex to rgb and add it to gridItems object
+     * convert rgb to rgba and add it to gridItems object
      * set color pattern data with value for each element
     */
     var selector;
-    for (var i in opts.itemsColor) {
+    for (var i in opts.gridItems) {
 
         // add rgb from stored hex and rgba from rgb to each grid item index
-        var oGI = opts.itemsColor[i];
+        var oGI = opts.gridItems[i];
         oGI.rgb = hextoRGB(oGI.hex);
         oGI.rgba = rgbToRgba(oGI.rgb);
         selector = colorsGridArray[i];
