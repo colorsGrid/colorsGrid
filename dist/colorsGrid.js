@@ -42,7 +42,7 @@ function colorsGrid(selector, {}) {
         cge.style.margin = '0';
 
         if (opts.autoBackgroundColor) {
-            cge.style.backgroundColor = opts.gridItems[el].hex;
+            cge.style.backgroundColor = opts.itemsColor[el].hex;
         }
 
         cge.insertAdjacentHTML('beforebegin', '<div class="colorsGrid-item"></div>');
@@ -95,15 +95,15 @@ function colorsGrid(selector, {}) {
     }
 
     /**
-     * convert hex to rgb and add it to gridItems object
-     * convert rgb to rgba and add it to gridItems object
+     * convert hex to rgb and add it to itemsColor object
+     * convert rgb to rgba and add it to itemsColor object
      * set color pattern data with value for each element
     */
     var selector;
-    for (var i in opts.gridItems) {
+    for (var i in opts.itemsColor) {
 
         // add rgb from stored hex and rgba from rgb to each grid item index
-        var oGI = opts.gridItems[i];
+        var oGI = opts.itemsColor[i];
         oGI.rgb = hextoRGB(oGI.hex);
         oGI.rgba = rgbToRgba(oGI.rgb);
         selector = colorsGridArray[i];
