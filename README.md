@@ -34,3 +34,8 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
   ```javascript
   colorsGrid(document.getElementById('container').getElementsByTagName('div') , { options });
   ```
+## Options
+   Property  |  Type  |  Default value  |  Description
+  ---------- | ------ | --------------- | -------------
+  gridItems  | Object |     Empty       | This allows you to add a color for specified element by setting element index as key and it's hex color as a value. you can get element index by enabling debug_mode. Example: gridItems:{1: '#0ff'}.
+ 
