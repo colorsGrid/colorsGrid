@@ -6,9 +6,8 @@
 Colors Grid is a lite javascript plugin will make you able to easily store your favorite colors/switch between patterns and copy it with one click.
 
 ## Features
- * Switch between color patterns (hex/rgb/rgba)
  * Copy stored color with one click
- * Sticky nav
+ * Sticky nav to navigate between pattern (hex/rgb/rgba)
  * Debug mode
  
 ## Installation
