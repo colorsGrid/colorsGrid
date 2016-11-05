@@ -30,8 +30,6 @@ function colorsGrid(selector, opts) {
     /*
      * add items to container if selector is container
      * or it's children length less than gridItems Object length
-     * -for doc-if there 20 index in gridItems object and 10 items in document
-     * autoAppend will clone document item and append 10 more
     */
     
     // if selector is a DOM list (not container) clone it's HTML
