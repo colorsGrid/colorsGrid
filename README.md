@@ -37,7 +37,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
   
 ##Options
  Options   |  Type  |  Default value  |  Description
-:----------: | :------: | :---------------: | -------------
+---------- | :------: | :---------------: | -------------
 gridItems  | Object |      null       | This allows you to add a color for specified element by setting element index as key and it's hex color as a value. you can get element index by enabling debug_mode. <br>Example: gridItems:{1: '#0ff'}.
 autoBackgroundColor | Boolean | true | To give items background color based on it's color at gridItems object.
 defaultPattern | String | hex | default color pattern which will be showed/copied.
