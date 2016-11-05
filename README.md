@@ -50,6 +50,7 @@ stickyNavBoxShadow  | String | 0 0 0 0 rgba(0,0,0,0) | StickyNav box shadow
 stickyNavTransition | String | all 0s ease | StickyNav transition
 stickyNavHoverBackgroundColor | String | stickyNavBackgroundColor| StickyNav hover background color 
 stickyNavHoverBoxShadow | String | stickyNavBoxShadow | StickyNav hover box shadow
+stickWithBottom | Boolean | true | to stick navigation at the bottom of container if nav bottom equal or greater then container bottom
 navItemsWidth | String | 170px | Navigation li width
 navItemsHeight | String | 40px | Navigation li height
 navItemsBackgroundColor | String | #ffffff | Navigation li background color
@@ -62,7 +63,6 @@ navItemsActiveBackgroundColor | String | navItemsActiveBackgroundColor | Navigat
 navItemsActiveColor | String | #0bbcd6 | Navigation li active state color
 navItemsActiveBoxShadow | String | #0bbcd6 | Navigation li active state box shadow
 navItemsActiveBorderRadius | String | navItemsBorderRadius | Navigation li active state border radius
-stickWithBottom | Boolean | true | to stick navigation at the bottom of container if nav bottom equal or greater then container bottom
 overlayState | Boolean | true | grid item overlay
 overlayCenter | Boolean | true | To center overlay horizontally if it's width smaller than grid item width
 overlayMiddle | Boolean | true | To center overlay vertically if it's height smaller than grid item height
