@@ -62,6 +62,7 @@ navItemsActiveBackgroundColor | String | navItemsActiveBackgroundColor | Navigat
 navItemsActiveColor | String | #0bbcd6 | Navigation li active state color
 navItemsActiveBoxShadow | String | #0bbcd6 | Navigation li active state box shadow
 navItemsActiveBorderRadius | String | navItemsBorderRadius | Navigation li active state border radius
+stickWithBottom | Boolean | true | to stick navigation at the bottom of container if nav bottom equal or greater then container bottom
 overlayState | Boolean | true | grid item overlay
 overlayCenter | Boolean | true | To center overlay horizontally if it's width smaller than grid item width
 overlayMiddle | Boolean | true | To center overlay vertically if it's height smaller than grid item height
