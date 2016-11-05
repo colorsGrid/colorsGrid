@@ -38,7 +38,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
  Options   |  Type  |  Default value  |  Description
 ---------- | :------: | :---------------: | -------------
 gridItems  | Object |      null       | This allows you to add a color for specified element by setting element index as key and it's hex color as a value. you can get element index by enabling debug_mode. <br>Example: gridItems:{1: '#0ff'}.
-autoAppend | Boolean | true | Add items to container incase of two situations:<br>If selector is container autoAppend will append `<div class="color-holder">` till them being equal with gridItems length <br>If selector length less than gridItems length autoAppend will clone selector HTML and append it till them being equal to gridItems length.
+autoAppend | Boolean | true | Add items to container incase of two situations:<br>1. If selector is container autoAppend will append `<div class="color-holder">` till them being equal with gridItems length. <br><br>2. If selector length less than gridItems length autoAppend will clone selector HTML and append it till them being equal to gridItems length.
 autoBackgroundColor | Boolean | true | To give items background color based on it's color at gridItems object.
 defaultPattern | String | hex | default color pattern which will be showed/copied.
 navContainer | Dom Element | null | Container to prepend navigation hex/rgb/rgba switcher to it. if not setted, navigation will be disabled.
