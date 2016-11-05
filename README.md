@@ -43,18 +43,18 @@ autoBackgroundColor | Boolean | true | To give items background color based on i
 defaultPattern | String | hex | default color pattern which will be showed/copied.
 navContainer | Dom Element | null | Container to prepend navigation hex/rgb/rgba switcher to it. if not setted, navigation will be disabled.
 navWidth | String | 100%  | Naviation width
-navHeight | String | 70px  | Naviation height
+navHeight | String | 70px | Naviation height
 stickyNav | Boolean | true | To make navigation fixed when scrollTop equal or greater than navigation offset top.
 stickyNavBackgroundColor | String | rgba(0,0,0,0) | StickyNav background color
-stickyNavBoxShadow  |  String  |  0 0 0 0 rgba(0,0,0,0) | StickyNav box shadow
-stickyNavTransition |  String  | all 0s ease  |  StickyNav transition
+stickyNavBoxShadow  | String | 0 0 0 0 rgba(0,0,0,0) | StickyNav box shadow
+stickyNavTransition | String | all 0s ease | StickyNav transition
 stickyNavHoverBackgroundColor | String | stickyNavBackgroundColor| StickyNav hover background color 
 stickyNavHoverBoxShadow | String | stickyNavBoxShadow | StickyNav hover box shadow
 navItemsWidth | String | 170px | Navigation li width
 navItemsHeight | String | 40px | Navigation li height
 navItemsBackgroundColor | String | #ffffff | Navigation li background color
-navItemsBoxShadow | String | 0 0 1px \#151515 | Navigation li box shadow
-navItemsColor | String | \#151515 | Navigation li color
+navItemsBoxShadow | String | 0 0 1px #151515 | Navigation li box shadow
+navItemsColor | String | #151515 | Navigation li color
 navItemsBorderRadius | String | 0 | Navigation li border radius
 navItemsFontSize | String | 1em | Navigation li font-size
 navItemsTransition | String | all 0s ease | Navigation li transition
