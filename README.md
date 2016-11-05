@@ -16,23 +16,23 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
   ```html
   <script src="colorsGrid.js"></script>
   ```
+  
+  2. #### Setup HTML and call the plugin
+  
+  If autoAppend enabled, you will need only to define the container
+    ```html
+    <div id="cont">
+    </div>
+    ```
+    ```javascript
+    colorsGrid(document.getElementById('container'), { options });
+    ```
+  
+  If container and at least on item exists in document, define the container and it's item/s
+    ```javascript
+    colorsGrid( document.getElementById(containerName).getElementsByClassName(itemClassName) ), { options });
+    ```
 
-  2. #### Setup HTML
-  Make a container with unique attribute to hold grid items
-  ```html
-  <div id="container">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  ```
-
-  3. #### Call Colors Grid plugin
-  Select the container id and it's items to apply plugin on them
-  ```javascript
-  colorsGrid(document.getElementById('container').getElementsByTagName('div') , { options });
-  ```
   
 ##Options
  Options   |  Type  |  Default value  |  Description
