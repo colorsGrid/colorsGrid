@@ -50,7 +50,6 @@ stickyNavBoxShadow  |  String  |  0 0 0 0 rgba(0,0,0,0) | StickyNav box shadow
 stickyNavTransition |  String  | all 0s ease  |  StickyNav transition
 stickyNavHoverBackgroundColor | String | stickyNavBackgroundColor| StickyNav hover background color 
 stickyNavHoverBoxShadow | String | stickyNavBoxShadow | StickyNav hover box shadow
-navigation items
 navItemsWidth | String | 170px | Navigation li width
 navItemsHeight | String | 40px | Navigation li height
 navItemsBackgroundColor | String | #ffffff | Navigation li background color
