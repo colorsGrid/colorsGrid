@@ -1,10 +1,16 @@
-function colorsGrid(selector, {}) {
+
+function colorsGrid(selector, opts) {
 
     //insert each color element into container
-    var arg = arguments,
-        colorsGridArray = [].slice.call(arg[0]),
-        sl = selector.length,
-        opts = arg[1],
+    var selectorsArray = null,
+        selectorLength = selector.length ? selector.length : 0,
+        
+        // if selector is DOM list ? get it's parent
+        selectorContainer = selectorLength ? selector.parentNode : selector,
+        sl = null,
+        opts = arguments[1],
+        
+        colorObjLength = Object.keys(opts.gridItems).length,
         root = document.body || document.documentElement,
         activePattern = opts.defaultPattern,
         overlayTransform = 'translate3d(0,0,1px);',
@@ -13,24 +19,58 @@ function colorsGrid(selector, {}) {
         overlayAlignProps = '',
         overlayStyle = '',
         overlayHoverStyle = '',
-        overlayTextBox = '',
-        overlayTextBoxHoverStyle = '',
+        overlayvalueBox = '',
+        overlayvalueBoxHoverStyle = '',
         copiedMsgStyle = '',
-
         navItemsStyle = '',
         navItemActiveStyle = '',
         stickyNavStyle = '',
         stickyNavHoverStyle = '';
-
-
-    // insert each element in container
+    
+    /*
+     * add items to container if selector is container
+     * or it's children length less than gridItems Object length
+     * -for doc-if there 20 index in gridItems object and 10 items in document
+     * autoAppend will clone document item and append 10 more
+    */
+    
+    // if selector is a DOM list (not container) clone it's HTML
+    // else set div as a default HTML
+    var selectorHTML = selectorLength ? selector[0].outerHTML : '<div class="color-holder"></div>',
+        reminingItems = colorObjLength - selectorLength;
+    
+    if (opts.autoAppend) {
+        // if selector is not container
+        if (selectorLength && selectorContainer.nodeName != 'BODY') {
+            // if gridItems length > selectors length
+            // append the rest
+            if (reminingItems > 0) {
+                for (var aai = 0, rIl = reminingItems; aai < rIl; aai++ ) {
+                    selectorContainer.insertAdjacentHTML('beforeend', selectorHTML);
+                }
+            }
+        } else {
+            // if there is no items in container 
+            for (var aai = 0, rIl = reminingItems; aai < rIl; aai++ ) {
+                selectorContainer.insertAdjacentHTML('beforeend', selectorHTML);
+            }
+        }
+        
+        selectorsArray = selectorLength ? [].slice.call(selector) : [].slice.call(selector.children);
+        selectorContainer = selectorsArray[0].parentNode;
+        sl = selectorsArray.length;
+    }
+    
+    
+    // insert each element in colorGrid-tems container
+    // to hold color and it's overlay
     // get default width/height/margin of each element to clone it to it's new container
+    
     for ( var el = 0; el < sl; el++) {
-        var cge = colorsGridArray[el],
+        var cge = selectorsArray[el],
             cgeW = cge.clientWidth + 'px',
-            cgeH = cge.clientHeight + 'px';
-
-        var cgeMTop = window.getComputedStyle(cge, 'null').marginTop,
+            cgeH = cge.clientHeight + 'px',
+            cgeMTop = window.getComputedStyle(cge, 'null').marginTop,
             cgeMRight = window.getComputedStyle(cge, 'null').marginRight,
             cgeMBottom = window.getComputedStyle(cge, 'null').marginBottom,
             cgeMLeft = window.getComputedStyle(cge, 'null').marginLeft;
@@ -44,7 +84,7 @@ function colorsGrid(selector, {}) {
         }
 
         cge.insertAdjacentHTML('beforebegin', '<div class="colorsGrid-item"></div>');
-        var cgi = document.getElementsByClassName('colorsGrid-item')[el];
+        var cgi = selectorContainer.getElementsByClassName('colorsGrid-item')[el];
 
         cgi.appendChild(cge);
 
@@ -55,7 +95,6 @@ function colorsGrid(selector, {}) {
         cgi.style.marginBottom = cgeMBottom;
         cgi.style.marginLeft = cgeMLeft;
     }
-
     
     // put items hex color in opject if type of color === string
     // to insert rgb/rgba with it
@@ -68,7 +107,6 @@ function colorsGrid(selector, {}) {
             opts.gridItems[item] = {hex: opts.gridItems[item]};
         }
     }
-    
 
     function hextoRGB (pattern) {
         var hexArray = pattern.split(''),
@@ -116,7 +154,7 @@ function colorsGrid(selector, {}) {
         var oGI = opts.gridItems[i];
         oGI.rgb = hextoRGB(oGI.hex);
         oGI.rgba = rgbToRgba(oGI.rgb);
-        selector = colorsGridArray[i];
+        selector = selectorsArray[i];
         //if selector is defined
         if(selector) { 
             // set hex color
@@ -128,60 +166,48 @@ function colorsGrid(selector, {}) {
         }
     }
 
-
     /* Navigation for color patterns
     -----------------------------------
       * create nav html and prepend it to navContainer
       * change color pattern when click on navigation item
     --------------------------------------------------------- */ 
 
-    if (opts.navContainer != undefined || null) {
+    if (opts.navContainer) {
         function createNav() {
-
             /* 
              * navigation holder
              * if not defined nav items will be disabled
              * @type {DOM element}
             */
             var navContainer = opts.navContainer,
-
-                navOuterHTML = '<div id="color-navigation"><ul><li data-color-pattern="hex" class="active-pattern">hex</li> <li data-color-pattern="rgb">rgb</li> <li data-color-pattern="rgba">rgba</li> </ul></div>';
-
-            // prepend navigation html to nav items container
+                navOuterHTML = '<div class="color-navigation"><ul><li data-color-pattern="hex" class="active-pattern">hex</li> <li data-color-pattern="rgb">rgb</li> <li data-color-pattern="rgba">rgba</li> </ul></div>';
             navContainer.insertAdjacentHTML('afterbegin', navOuterHTML);
         }
         createNav();
-
-        var colorNavCont = document.getElementById('color-navigation'),
+        
+        var colorNavCont = document.getElementsByClassName('color-navigation')[0],
             colorNav = colorNavCont.getElementsByTagName('ul')[0],
             navItems = colorNav.getElementsByTagName('li'), 
-            cil = navItems.length,
-            cilT = cil;
+            cil = navItems.length;
 
-        /*
-         * navigation items default style
-         * @type {Object}
-        */
+        // navigation items default style
         var nisp = {
             width: opts.navItemsWidth ? opts.navItemsWidth : '170px',
             height: opts.navItemsHeight ? opts.navItemsHeight : '40px',
             bgColor: opts.navItemsBackgroundColor ? opts.navItemsBackgroundColor : '#ffffff',
             fontSize: opts.navItemsFontSize ? opts.navItemsFontSize : '1em',
-            color: opts.navItemsColor ? opts.navItemsColor : '#ff8b8b',
-            boxShadow: opts.navItemsBoxShadow ? opts.navItemsBoxShadow : '0 0 1px 1px #ff8b8b',
+            color: opts.navItemsColor ? opts.navItemsColor : '#151515',
+            boxShadow: opts.navItemsBoxShadow ? opts.navItemsBoxShadow : '0 0 1px 0 rgba(15,15,15,1)',
             borderRadius: opts.navItemsBorderRadius ? opts.navItemsBorderRadius : '0',
-            transition: opts.navItemsTransition ? opts.navItemsTransition : 'all .4s ease'
+            transition: opts.navItemsTransition ? opts.navItemsTransition : 'all 0s ease'
         };
 
-        /*
-         * navigation items default style
-         * @type {String}
-        */
+        //navigation items default style
         navItemsStyle = 'width:' + nisp.width
                         + ';height:' + nisp.height
                         + ';line-height:' + nisp.height
-                        + ';font-size:' + nisp.fontSize
                         + ';background-color:' + nisp.bgColor 
+                        + ';font-size:' + nisp.fontSize
                         + ';color:' + nisp.color 
                         + ';box-shadow:' + nisp.boxShadow 
                         + ';border-radius:' + nisp.borderRadius
@@ -197,30 +223,23 @@ function colorsGrid(selector, {}) {
         var navContStyle = 'width:' + nsp.width
                          + ';height:'+ nsp.height 
                          + ';line-height:' + nsp.height +';';
-        /*
-         * navigation active item style
-         * @type {Object}
-        */
+        
+        // navigation active item style
         var niasp = {
-            bgColor: opts.navItemsActiveBackgroundColor ? opts.navItemsActiveBackgroundColor : '#f1f1f1',
-            color: opts.navItemsActiveColor ? opts.navItemsActiveColor : '#ff8b8b',
-            boxShadow: opts.navItemsActiveBoxShadow ? opts.navItemsActiveBoxShadow : '0 0 1px 1px #ff8b8b',
+            bgColor: opts.navItemsActiveBackgroundColor ? opts.navItemsActiveBackgroundColor : '#ffffff',
+            color: opts.navItemsActiveColor ? opts.navItemsActiveColor : '#0bbcd6',
+            boxShadow: opts.navItemsActiveBoxShadow ? opts.navItemsActiveBoxShadow : '0 0 1px 1px #0bbcd6',
             borderRadius: opts.navItemsActiveBorderRadius ? opts.navItemsActiveBorderRadius : nisp.borderRadius
         };
-
-        /*
-         * navigation active item style
-         * @type {String}
-        */
-        navItemActiveStyle = ';background-color:' + nisp.bgColor 
-                            + ';color:' + nisp.color 
-                            + ';box-shadow:' + nisp.boxShadow 
-                            + ';border-radius:' + nisp.borderRadius + ';';
+        // navigation active item style
+        navItemActiveStyle = ';background-color:' + niasp.bgColor 
+                            + ';color:' + niasp.color 
+                            + ';box-shadow:' + niasp.boxShadow 
+                            + ';border-radius:' + niasp.borderRadius + ';';
 
         // remove active class from items on each item click
         function removeActiveClass() {
-            var e = 0, 
-                l = cilT;
+            var e = 0, l = cil;
             for (; e < l; e++) {
                 navItems[e].classList.remove('active-pattern');
             }
@@ -230,39 +249,59 @@ function colorsGrid(selector, {}) {
          * get active color pattern from clicked item
          * set active class to clicked item
         */
-        while(--cil > -1) {
-            navItems[cil].addEventListener('click', function () {
+        for(var nits = 0; nits < cil; nits++ ) {
+            navItems[nits].addEventListener('click', function () {
                 activePattern = this.getAttribute('data-color-pattern');
                 removeActiveClass();
                 this.classList.add('active-pattern');
             });
         }
 
-
-        /*
+        /*------------------------------------------
          * stickyNav
          * add sticky class when scrolTop passes ul
          * sticky default style
          * sticky hover style
-        */
+        ------------------------------------------*/
 
         if (opts.stickyNav) {
 
-            var navOT = opts.navContainer.getBoundingClientRect().top;
-
+            var navOT = colorNavCont.offsetTop,
+                navH = colorNavCont.clientHeight,
+                // container bottom threshold to make nav stick at it
+                // if scroll top greater than container offset bottom
+                gridItemvd = document.getElementsByClassName('colorsGrid-item');
+            
             window.addEventListener('resize', function () {
                 navOT = opts.navContainer.getBoundingClientRect().top;
             });
+            console.log(colorNavCont.clientHeight)
+            if (opts.stickWithBottom) {
+                window.addEventListener('scroll', function(e) {
+                    var ch = selectorContainer.offsetHeight - 70,
+                        sc = window.pageYOffset;
 
-            // sticky nav if scrollTop equal to or greater than ul offsetTop
-            window.addEventListener('scroll', function(e) {
-                if (window.pageYOffset >= navOT) {
-                    colorNav.classList.add('sticky-nav');
-                } else {
-                    colorNav.classList.remove('sticky-nav');
-                }
-            });
-
+                    if (sc >= navOT && sc < ch ) {
+                        colorNav.classList.add('sticky-nav');
+                        colorNav.style.top = '';
+                    } else if (sc >= ch) {
+                        colorNav.style.top = '-'+ nsp.height;
+                    } else {
+                        colorNav.classList.remove('sticky-nav');
+                        colorNav.style.top = '';
+                    }
+                });
+            } else {
+                window.addEventListener('scroll', function(e) {
+                    if (window.pageYOffset >= navOT) {
+                        colorNav.classList.add('sticky-nav');
+                    } else {
+                        colorNav.classList.remove('sticky-nav');
+                    }
+                });
+            }
+            
+            // stickyNav style 
             var stnsp = {
                 backgroundColor: opts.stickyNavBackgroundColor ? opts.stickyNavBackgroundColor : 'rgba(0,0,0,0)',
                 boxShadow: opts.stickyNavBoxShadow ? opts.stickyNavBoxShadow : '0 0 0 0 rgba(0,0,0,0)',
@@ -271,105 +310,85 @@ function colorsGrid(selector, {}) {
             stickyNavStyle = ';background-color:' + stnsp.backgroundColor
                            + ';box-shadow:' + stnsp.boxShadow +';'
                            + ';transition:' + stnsp.transition;
-
-
+            
+            // stickyNav hover style 
             var stnHsp = {
-                backgroundColor: opts.stickyNavHoverBackgroundColor ? opts.stickyNavHoverBackgroundColor : 'rgba(0,0,0,0)',
-                boxShadow: opts.stickyNavHoverBoxShadow ? opts.stickyNavHoverBoxShadow : '0 0 0 0 rgba(0,0,0,0)'
+                backgroundColor: opts.stickyNavHoverBackgroundColor ? opts.stickyNavHoverBackgroundColor : stnsp.backgroundColor,
+                boxShadow: opts.stickyNavHoverBoxShadow ? opts.stickyNavHoverBoxShadow : stnsp.boxShadow
             };
             stickyNavHoverStyle = ';background-color:' + stnHsp.backgroundColor + ';'
                                 + ';box-shadow:' + stnHsp.boxShadow +';';
         }
     }
+    
     /* ---------------------------
        Colors grid overlay
     --------------------------- */
 
     if (opts.overlayState) {
-        // insert overlay after each colorsGridArray
-        for (var co = 0, col = colorsGridArray.length; co < col; co++) {
-            colorsGridArray[co].insertAdjacentHTML('afterend', '<div class="colorsGrid-overlay"><span class="copy-state">copied!</span><span>copy</span></div>');
+        // insert overlay after each selectorsArray
+        for (var co = 0, col = selectorsArray.length; co < col; co++) {
+            if ( /colorsGrid\-overlay/i.test(selectorsArray[co].innerHTML) != true) {
+                selectorsArray[co].insertAdjacentHTML('afterend', '<div class="colorsGrid-overlay"><span class="copy-state">copied!</span><span>copy</span></div>');
+            }
         }
 
-        var colorsGridOverlay = document.getElementsByClassName('colorsGrid-overlay'),
+        var colorsGridOverlay = selectorContainer.getElementsByClassName('colorsGrid-overlay'),
             cOlArray = [].slice.call(colorsGridOverlay),
             selectorIndex;
-
+        
         // center overlay horizontally
         if (opts.overlayCenter) {
             overlayTransform = overlayTransform.replace(/\(0/, '(-50%');
             overlayLeft = '50%;';
         }
-
         // center overlay vertically
         if (opts.overlayMiddle) {
             overlayTransform = overlayTransform.replace(/,0/, ',-50%');
             overlayTop = '50%;';
         }
-
-        /*
-         * overlay centering style
-         * @type {String}
-        */
+        // overlay centering style
         overlayAlignProps = 'top:'+ overlayTop + 'left:' + overlayLeft + 'transform:' + overlayTransform;
 
-        /*
-         * overlay default style
-         * @type {Object}
-        */
+        // overlay default style
         var oLP = {
             width: opts.overlayWidth ? opts.overlayWidth : '100%',
             height: opts.overlayHeight ? opts.overlayHeight : '100%',
             bgColor: opts.overlayBackgroundColor ? opts.overlayBackgroundColor : 'transparent',
             opacity: opts.overlayOpacity ? opts.overlayOpacity : '0',
             cursor: opts.overlayCursor ? opts.overlayCursor : 'pointer',
-            transition: opts.overlayTransition ? opts.overlayTransition : 'all .7s ease'
+            transition: opts.overlayTransition ? opts.overlayTransition : 'all .4s ease'
         };
-        /*
-         * overlay default style
-         * @type {String}
-        */
+        // overlay default style
         overlayStyle = 'width:' + oLP.width
                         + ';height:' + oLP.height
                         + ';background-color:'+ oLP.bgColor 
                         + ';opacity:' + oLP.opacity
                         + ';cursor:' + oLP.cursor
                         + ';transition:'+ oLP.transition +';';
-        /*
-         * overlay hover style
-         * @type {Object}
-        */
+        
+        // overlay hover style
         var oLHP = {
             bgColor: opts.overlayHoverBackgroundColor ? opts.overlayHoverBackgroundColor : oLP.bgColor,
             transition: opts.overlayHoverTransition ? opts.overlayHoverTransition : oLP.transition,
         };
-
-        /*
-         * overlay hover style
-         * @type {String}
-        */
+        // overlay hover style
         overlayHoverStyle = 'background-color:'+ oLHP.bgColor 
                             + ';transition:'+ oLHP.transition +';';
 
-        /*
-         * overlay color value default style
-         * @type {Object}
-        */
+        // overlay color value default style
         var oLTxtP = {
-            width: opts.textBoxWidth ? opts.textBoxWidth : '70%',
-            height: opts.textBoxHeight ? opts.textBoxHeight : '45px',
-            bgColor: opts.textBoxBackgroundColor ? opts.textBoxBackgroundColor : 'rgba(0,0,0,.3)',
-            fontSize: opts.textBoxFontSize ? opts.textBoxFontSize : '24px',
-            color: opts.textBoxColor ? opts.textBoxColor : 'rgba(255,255,255,.9)',
-            boxShadow: opts.textBoxBoxShadow ? opts.textBoxBoxShadow : '0 0 0 0 rgba(0,0,0,0)',
-            borderRadius: opts.textBoxBorderRadius ? opts.textBoxBorderRadius : '0',
-            transition: opts.textBoxTransition ? opts.textBoxTransition : 'all .4s ease',
+            width: opts.valueBoxWidth ? opts.valueBoxWidth : '70%',
+            height: opts.valueBoxHeight ? opts.valueBoxHeight : '45px',
+            bgColor: opts.valueBoxBackgroundColor ? opts.valueBoxBackgroundColor : 'rgba(0,0,0,.3)',
+            fontSize: opts.valueBoxFontSize ? opts.valueBoxFontSize : '1.5em',
+            color: opts.valueBoxColor ? opts.valueBoxColor : 'rgba(255,255,255,.9)',
+            boxShadow: opts.valueBoxBoxShadow ? opts.valueBoxBoxShadow : '0 0 0 0 rgba(0,0,0,0)',
+            borderRadius: opts.valueBoxBorderRadius ? opts.valueBoxBorderRadius : '0',
+            transition: opts.valueBoxTransition ? opts.valueBoxTransition : 'all .4s ease',
         };
-        /*
-         * overlay color value default style
-         * @type {String}
-        */
-        overlayTextBox = 'width:' + oLTxtP.width
+        // overlay color value default style
+        overlayvalueBox = 'width:' + oLTxtP.width
                             + ';height:' + oLTxtP.height
                             + ';line-height:' + oLTxtP.height
                             + ';background-color:' + oLTxtP.bgColor 
@@ -379,41 +398,34 @@ function colorsGrid(selector, {}) {
                             + ';border-radius:' + oLTxtP.borderRadius
                             + ';transition:' + oLTxtP.transition + ';';
 
-        /*
-         * overlay color value hover style
-         * @type {Object}
-        */
+        // overlay color value hover style
         var oLHTxtP = {
-            bgColor: opts.textBoxHoverbackgroundColor ? opts.textBoxHoverbackgroundColor : oLTxtP.bgColor,
-            color: opts.textBoxHovercolor ? opts.textBoxHovercolor : oLTxtP.color,
-            boxShadow: opts.textBoxHoverboxShadow ? opts.boxShadow : oLTxtP.boxShadow,
-            borderRadius: opts.textBoxHoverBorderRadius ? opts.textBoxHoverBorderRadius : oLTxtP.borderRadius,
-            transition: opts.textBoxHovertransition ? opts.textBoxHovertransition : oLTxtP.transition,
+            bgColor: opts.valueBoxHoverbackgroundColor ? opts.valueBoxHoverbackgroundColor : oLTxtP.bgColor,
+            color: opts.valueBoxHovercolor ? opts.valueBoxHovercolor : oLTxtP.color,
+            boxShadow: opts.valueBoxHoverboxShadow ? opts.boxShadow : oLTxtP.boxShadow,
+            borderRadius: opts.valueBoxHoverBorderRadius ? opts.valueBoxHoverBorderRadius : oLTxtP.borderRadius,
+            transition: opts.valueBoxHovertransition ? opts.valueBoxHovertransition : oLTxtP.transition,
         };
-        /*
-         * overlay color value hover style
-         * @type {String}
-        */
-        overlayTextBoxHoverStyle = 'background-color:' + oLHTxtP.bgColor 
+        // overlay color value hover style
+        overlayvalueBoxHoverStyle = 'background-color:' + oLHTxtP.bgColor 
                                 + ';color:' + oLHTxtP.color 
                                 + ';box-shadow:' + oLHTxtP.boxShadow 
                                 + ';border-radius:' + oLHTxtP.borderRadius
                                 + ';transition:' + oLHTxtP.transition + ';';
 
-
-        //set overlay textBox value ( setted from opts.defaultPattern )
+        //set overlay valueBox value ( setted from opts.defaultPattern )
         for (var olt = 0, oltl = colorsGridOverlay.length; olt < oltl; olt++) {
             colorsGridOverlay[olt].getElementsByTagName('span')[1].textContent =
-                        colorsGridArray[olt].getAttribute('data-'+activePattern+'-color');
+                    selectorsArray[olt].getAttribute('data-'+activePattern+'-color');
         }
 
         if (opts.navContainer) {
-            //change overlay textBox/s value when click on nav item
+            //change overlay valueBox value when click on nav item
             for (var ni = 0, nil = navItems.length; ni < nil; ni++) {
                 navItems[ni].addEventListener('click', function () {
                     for (var nit = 0, nitl = colorsGridOverlay.length; nit < nitl; nit++) {
                         colorsGridOverlay[nit].getElementsByTagName('span')[1].textContent =
-                        colorsGridArray[nit].getAttribute('data-'+activePattern+'-color');
+                                selectorsArray[nit].getAttribute('data-'+activePattern+'-color');
                     }
                 });
             }
@@ -457,7 +469,7 @@ function colorsGrid(selector, {}) {
         cOlArray[oli].addEventListener('click', function () {
             var ths = this;
             selectorIndex = cOlArray.indexOf(ths);
-            t.value = colorsGridArray[selectorIndex].getAttribute('data-'+activePattern+'-color');
+            t.value = selectorsArray[selectorIndex].getAttribute('data-'+activePattern+'-color');
             attachCopy();
             addCopiedClassTo(this);
         });
@@ -465,7 +477,7 @@ function colorsGrid(selector, {}) {
 
     // copy color when click on frid element
     for (var eli = 0; eli < sl; eli++) {
-        colorsGridArray[eli].addEventListener('click', function () {
+        selectorsArray[eli].addEventListener('click', function () {
             var ths = this;
             t.value = ths.getAttribute('data-'+activePattern+'-color');
             attachCopy();
@@ -474,7 +486,7 @@ function colorsGrid(selector, {}) {
     }
     // append default style
     (function() {
-        var defaultStyle = "<style type='text/css'>.colorsGrid-item{display:inline-block;position:relative;}#color-navigation{position:relative;"+navContStyle+"margin:0;text-align:center;}#color-navigation ul{width:100%;height:inherit;margin:0;position:absolute;top:0%;}#color-navigation ul.sticky-nav{z-index:99999;margin:0;position:fixed;top:0;left:0;"+stickyNavStyle+"}#color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}#color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}#color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}#color-navigation li:hover{"+navItemActiveStyle+"}#color-navigation li.active-pattern{box-shadow:0 0 2px 1px #0bbcd6;color:#0bbcd6;}.colorsGrid-overlay{position:absolute;text-align:center;"+overlayAlignProps+overlayStyle+"}.colorsGrid-overlay:hover{opacity:1;"+overlayHoverStyle+"}.colorsGrid-overlay span{display:inline-block;"+overlayTextBox+"position:absolute;top:50%; left:50%;transform:translateZ(1px)translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)translateZ(1px);text-align:center;}.colorsGrid-overlay span:hover{"+overlayTextBoxHoverStyle+"}"+copiedMsgStyle+"</style>";
+        var defaultStyle = "<style type='text/css'>.colorsGrid-item{display:inline-block;position:relative;}.color-navigation{position:relative;"+navContStyle+"margin:0;text-align:center;}.color-navigation ul{width:100%;height:inherit;margin:0;position:absolute;top:0%;}.color-navigation ul.sticky-nav{z-index:99999;margin:0;position:fixed;top:0;left:0;"+stickyNavStyle+"}.color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}.color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}.color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}.color-navigation li.active-pattern{"+navItemActiveStyle+"}.colorsGrid-overlay{position:absolute;text-align:center;"+overlayAlignProps+overlayStyle+"}.colorsGrid-item:hover .colorsGrid-overlay{opacity:1;"+overlayHoverStyle+"}.colorsGrid-overlay span{display:inline-block;"+overlayvalueBox+"position:absolute;top:50%; left:50%;transform:translateZ(1px)translate(-50%,-50%);-webkit-transform:translate(-50%,-50%)translateZ(1px);text-align:center;}.colorsGrid-overlay span:hover{"+overlayvalueBoxHoverStyle+"}"+copiedMsgStyle+"</style>";
         document.head.insertAdjacentHTML('beforeend', defaultStyle);
     }());
 
@@ -484,9 +496,9 @@ function colorsGrid(selector, {}) {
     if (opts.debug_mode) {
         var dm = 0;
         for (; dm < sl; dm++) {
-            colorsGridArray[dm].addEventListener('click', function () {
-                var i = colorsGridArray.indexOf(this);
-                console.log(' i =' + i + ', \n selector HTML = ' + colorsGridArray[0].outerHTML);
+            selectorsArray[dm].addEventListener('click', function () {
+                var i = selectorsArray.indexOf(this);
+                console.log(' i =' + i + ', \n selector HTML = ' + selectorsArray[0].outerHTML);
             });
         }
 
@@ -496,7 +508,7 @@ function colorsGrid(selector, {}) {
                 cOlArray[dmol].addEventListener('click', function () {
                     var i = cOlArray.indexOf(this);
                     console.log(' Element index = ' + i 
-                                + ', \n Element HTML = ' + colorsGridArray[i].outerHTML);
+                                + ', \n Element HTML = ' + selectorsArray[i].outerHTML);
                 });
             }
         }
