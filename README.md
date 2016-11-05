@@ -1,5 +1,5 @@
 
-### ColorsGrid
+### ColorsGrid (Beta version)
   > V 1.0
   
 ### Description
