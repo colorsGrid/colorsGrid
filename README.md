@@ -34,6 +34,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
   ```javascript
   colorsGrid(document.getElementById('container').getElementsByTagName('div') , { options });
   ```
+  
 ##Options
  Options   |  Type  |  Default value  |  Description
 ---------- | ------ | --------------- | -------------
