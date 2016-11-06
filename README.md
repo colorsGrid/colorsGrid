@@ -7,7 +7,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
 
 ## Features
  * Copy stored color with one click
- * Sticky nav to navigate between pattern (hex/rgb/rgba)
+ * Sticky nav to navigate between patterns(hex/rgb/rgba)
  * Debug mode
  
 ## Installation
