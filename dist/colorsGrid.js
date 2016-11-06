@@ -53,17 +53,9 @@ function colorsGrid(selector, opts) {
         reminingItems = colorObjLength - selectorLength;
     
     if (autoAppend) {
-        // if selector is not container
-        if (selectorLength && selectorContainer.nodeName != 'BODY') {
-            // if gridItems length > selectors length
-            // append the rest
-            if (reminingItems > 0) {
-                for (var aai = 0, rIl = reminingItems; aai < rIl; aai++ ) {
-                    selectorContainer.insertAdjacentHTML('beforeend', selectorHTML);
-                }
-            }
-        } else {
-            // if there is no items in container 
+        // if gridItems length > selectors length
+        // append the rest
+        if (reminingItems > 0) {
             for (var aai = 0, rIl = reminingItems; aai < rIl; aai++ ) {
                 selectorContainer.insertAdjacentHTML('beforeend', selectorHTML);
             }
