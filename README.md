@@ -42,7 +42,7 @@ autoAppend | Boolean | true | Add items to container incase of two situations:<b
 autoBackgroundColor | Boolean | true | To give items background color based on it's color at gridItems object.
 defaultPattern | String | hex | default color pattern which will be showed/copied.
 inlineStyle | Boolean | true | Disable incase of styling with external stylesheet.
-navContainer | Dom Element | null | Container to prepend navigation hex/rgb/rgba switcher to it. if not setted, navigation will be disabled.
+navState | Boolean | true | To prepend hex/rgb/rgba navigation to gridItems container
 navWidth | String | 100%  | Naviation width
 navHeight | String | 70px | Naviation height
 stickyNav | Boolean | true | To make navigation fixed when scrollTop equal or greater than navigation offset top.
