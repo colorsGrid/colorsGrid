@@ -41,6 +41,7 @@ gridItems  | Object |      null       | This allows you to add a color for speci
 autoAppend | Boolean | true | Add items to container incase of two situations:<br>1. If selector is container autoAppend will append `<div class="color-holder">` till them being equal with gridItems length. <br><br>2. If selector length less than gridItems length autoAppend will clone selector HTML and append it till them being equal to gridItems length.
 autoBackgroundColor | Boolean | true | To give items background color based on it's color at gridItems object.
 defaultPattern | String | hex | default color pattern which will be showed/copied.
+inlineStyle | Boolean | true | Disable incase of styling with external stylesheet.
 navContainer | Dom Element | null | Container to prepend navigation hex/rgb/rgba switcher to it. if not setted, navigation will be disabled.
 navWidth | String | 100%  | Naviation width
 navHeight | String | 70px | Naviation height
