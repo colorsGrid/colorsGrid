@@ -28,7 +28,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
     colorsGrid(document.getElementById('container'), { options });
     ```
   
-  If container and at least on item exists in document, define the container and it's item/s
+  If container and at least on item exists in document, define the container and it's item
     ```javascript
     colorsGrid( document.getElementById(containerName).getElementsByClassName(itemClassName) ), { options });
     ```
