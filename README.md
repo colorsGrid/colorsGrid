@@ -43,7 +43,6 @@ autoBackgroundColor | Boolean | true | To give items background color based on i
 defaultPattern | String | hex | default color pattern which will be showed/copied.
 inlineStyle | Boolean | true | Disable incase of styling with external stylesheet.
 navState | Boolean | true | To prepend hex/rgb/rgba navigation to gridItems container
-navWidth | String | 100%  | Naviation width
 navHeight | String | 70px | Naviation height
 stickyNav | Boolean | true | To make navigation fixed when scrollTop equal or greater than navigation offset top.
 stickyNavBackgroundColor | String | rgba(0,0,0,0) | StickyNav background color
