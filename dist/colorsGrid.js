@@ -260,7 +260,7 @@ function colorGrid (selector, options) {
     var overlay = {
         overlayHTML: "<div class='overlay'><span class='copy-state'>copied!</span><span></span></div>",
         style: {
-            backgroundColor: defIfNull(options.overlayBackgroundColor, 'rgba(0,0,0,.4)'),
+            backgroundColor: defIfNull(options.overlayBackgroundColor, 'rgba(0,0,0,0.4)'),
             transition: defIfNull(options.overlayTransition, 'all 0.4s ease')
         }
     };
@@ -276,7 +276,7 @@ function colorGrid (selector, options) {
     var colorValueBox = {
         width: '150px',
         height: '40px',
-        backgroundColor: defIfNull(options.colorBoxBackgroundColor, 'rgba(0,0,0,0)'),
+        backgroundColor: defIfNull(options.colorBoxBackgroundColor, ''),
         color: defIfNull(options.colorBoxColor, 'rgba(255,255,255,.8)'),
         boxShadow: defIfNull(options.colorBoxBorder, '0 0 4px 3px rgba(255,255,255,.8)'),
         transition: defIfNull(options.colorBoxTransition, 'all 0.4s ease'),
