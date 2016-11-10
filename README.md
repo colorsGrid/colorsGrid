@@ -42,23 +42,19 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
  Options   |  Type  |  Default value  |  Description
 ---------- | :------: | :---------------: | -------------
 gridItems  | Object |      null       | Store your colors at this object with the index of element.
-
 inlineStyle | Boolean | true | 
 navState | Boolean | true | 
 stickyNavState | Boolean | true | 
 overlayState | Boolean | true | 
 copiedMessageState | Boolean | true | 
-
 navWidth | String | 100%
 navHeight | String | 50px
 navTransition | String | all 0.4s ease
-
 navItemsWidth | String | 170px
 navItemsHeight | String | navHeight - 10px
 navItemsBackgroundColor | String | #ffffff
 navItemsBoxShadow | String | 0 0 0 1px #3b4148
 navItemsTransition | String | all .4s ease-in-out
-
 navItemsActiveBackgroundColor | String | #3b4148
 navItemsActiveColor | String | #f1f1f1
 navItemsActiveBoxShadow | String | null
