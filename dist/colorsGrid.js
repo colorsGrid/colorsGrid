@@ -129,17 +129,12 @@ function colorGrid (selector, options) {
      * booleans defaults values
     */  
     var inlineStyle = isNotNull(options.inlineStyle) ? options.inlineStyle : true,
-        /* @grid items */
-        autoAppend = isNotNull(options.autoAppend) ? options.autoAppend : true,
         /* @navigation*/
         navState = isNotNull(options.navState) ? options.navState : true,
-        autoBackgroundColor = isNotNull(options.autoBackgroundColor) ? options.autoBackgroundColor : true,
         stickyNavState = isNotNull(options.stickyNav) ? options.stickyNav : true,
-        stickWithBottom = isNotNull(options.stickWithBottom) ? options.stickWithBottom : true,
         /*@overlay*/
         overlayState = isNotNull(options.overlayState) ? options.overlayState : true,
-        overlayCenter = isNotNull(options.overlayCenter) ? options.overlayCenter : true,
-        overlayMiddle = isNotNull(options.overlayMiddle) ? options.overlayMiddle : true,
+        
         copiedMessageState = isNotNull(options.copiedMsgState) ? options.copiedMsgState : true,
 
         doc = document.body || document.documentElement,
@@ -149,7 +144,7 @@ function colorGrid (selector, options) {
         gridItemList,
         gridItem,
         
-        activePattern = "hex",
+        activePattern = defIfNull(options.activePattern, "hex"),
         /**
          * style strings
         */
@@ -160,7 +155,7 @@ function colorGrid (selector, options) {
         stickyNavStyle = '',
         stickyNavHoverStyle = '',
         overlayStyle = '',
-        colorValueBoxStyle = '',
+        colorBoxStyle = '',
          
         // @type {Number}
         copiedMsgDuration,
@@ -214,13 +209,14 @@ function colorGrid (selector, options) {
             width: defIfNull(options.navItemsWidth, '170px'),
             lineHeight: defIfNull(options.navItemsHeight, navItemHeight),
             backgroundColor: defIfNull(options.navItemsBackgroundColor, "#ffffff"),
+            boxShadow: defIfNull(options.navItemsBoxShadow, '0 0 0 1px #3b4148'),
             // to verticle align items 
             marginTop: navItemsMarginTop,
-            transition: defIfNull(options.transition, 'all .4s ease-in-out'),
+            transition: defIfNull(options.navItemsTransition, 'all .4s ease-in-out'),
         },
         activeElement_style: {
-            backgroundColor: defIfNull(options.navItemsActiveBackgroundColor, '#17c37b'),
-            color: defIfNull(options.color, '#f1f1f1'),
+            backgroundColor: defIfNull(options.navItemsActiveBackgroundColor, '#3b4148'),
+            color: defIfNull(options.navItemsActiveColor, '#f1f1f1'),
             boxShadow: defIfNull(options.navItemsActiveBoxShadow, ''),
             borderRadius: defIfNull(options.navItemsActiveBorderRadius, ''),
         }
@@ -275,20 +271,21 @@ function colorGrid (selector, options) {
 
     /**
      * @colorValueBox style
+     * @selector {.colorsGrid-item .overlay span}
     */
     var colorValueBox = {
         width: '150px',
         height: '40px',
-        backgroundColor: defIfNull(options.copiedMsgBackgroundColor, 'rgba(0,0,0,0)'),
-        color: defIfNull(options.copiedMsgColor, 'rgba(255,255,255,.8)'),
-        boxShadow: defIfNull(options.copiedMsgBorder, '0 0 4px 3px rgba(255,255,255,.8)'),
-        transition: defIfNull(options.copiedMsgTransition, 'all 0.4s ease'),
+        backgroundColor: defIfNull(options.colorBoxBackgroundColor, 'rgba(0,0,0,0)'),
+        color: defIfNull(options.colorBoxColor, 'rgba(255,255,255,.8)'),
+        boxShadow: defIfNull(options.colorBoxBorder, '0 0 4px 3px rgba(255,255,255,.8)'),
+        transition: defIfNull(options.colorBoxTransition, 'all 0.4s ease'),
     };
-
+    //to verticle align text
     colorValueBox.lineHeight = colorValueBox.height;
 
     forIn(colorValueBox, function (key, value) {
-        colorValueBoxStyle += toCss(key, value);
+        colorBoxStyle += toCss(key, value);
     });
 
     if (copiedMessageState) {
@@ -473,7 +470,7 @@ function colorGrid (selector, options) {
     
     if (inlineStyle) {
         (function() {
-            var defaultStyle = "<style type='text/css'>.colorsGrid-item{position:relative;}.color-navigation{position:relative;width: 100%;"+navStyle+"margin:0;text-align:center;}.color-navigation ul{position:absolute;top:0%;width:100%;height:inherit;margin:0;}.color-navigation ul.sticky{z-index:99999;position:fixed;top:0;left:0;margin:0;"+stickyNavStyle+"}.color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}.color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}.color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}.color-navigation li.active-pattern{"+navItemActiveStyle+"}.colorsGrid-item .overlay{position:absolute;top:0;width:100%;height:100%;"+overlayStyle+"text-align:center;}.colorsGrid-item:hover .overlay{opacity:1;}.colorsGrid-item .overlay span{position:absolute;top:50%;left:50%;display:block;"+colorValueBoxStyle+"transform:translateZ(1px)translate(-50%,-50%);text-align:center;}"+copiedMsgStyle+"</style>";
+            var defaultStyle = "<style type='text/css'>.colorsGrid-item{position:relative;}.color-navigation{position:relative;width: 100%;"+navStyle+"margin:0;text-align:center;}.color-navigation ul{position:absolute;top:0%;width:100%;height:inherit;margin:0;}.color-navigation ul.sticky{z-index:99999;position:fixed;top:0;left:0;margin:0;"+stickyNavStyle+"}.color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}.color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}.color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}.color-navigation li.active-pattern{"+navItemActiveStyle+"}.colorsGrid-item .overlay{position:absolute;top:0;width:100%;height:100%;"+overlayStyle+"text-align:center;}.colorsGrid-item:hover .overlay{opacity:1;}.colorsGrid-item .overlay span{position:absolute;top:50%;left:50%;display:block;"+colorBoxStyle+"transform:translateZ(1px)translate(-50%,-50%);text-align:center;}"+copiedMsgStyle+"</style>";
             document.head.insertAdjacentHTML('beforeend', defaultStyle);
         }());
     }
