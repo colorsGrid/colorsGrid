@@ -19,7 +19,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
   
   2. #### Setup HTML
     ```html
-    <div id="cont"></div>
+    <div id="container"></div>
     ```
     ```javascript
     colorsGrid(document.getElementById('container'), { options });
@@ -27,7 +27,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
     
     Or if there is already items 
     ```html
-    <div id="cont">
+    <div id="container">
       <div class="item"></div>
       ...
     </div>
