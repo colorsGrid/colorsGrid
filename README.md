@@ -42,37 +42,31 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
  Options   |  Type  |  Default value  |  Description
 ---------- | :------: | :---------------: | -------------
 gridItems  | Object |      null       | Store your colors at this object with the index of element.
-inlineStyle | Boolean | true | 
-navState | Boolean | true | 
-stickyNavState | Boolean | true | 
-overlayState | Boolean | true | 
-copiedMessageState | Boolean | true | 
-navWidth | String | 100%
-navHeight | String | 50px
-navTransition | String | all 0.4s ease
-navItemsWidth | String | 170px
-navItemsHeight | String | navHeight - 10px
-navItemsBackgroundColor | String | #ffffff
-navItemsBoxShadow | String | 0 0 0 1px #3b4148
-navItemsTransition | String | all .4s ease-in-out
-navItemsActiveBackgroundColor | String | #3b4148
-navItemsActiveColor | String | #f1f1f1
-navItemsActiveBoxShadow | String | null
-navItemsActiveBorderRadius | String | null
-
-stickyNavBackgroundColor | String | null
-stickyNavBoxShadow | String | null
-stickyNavTransition | String | all 0.4s ease
-
-stickyNavHoverBackgroundColor | String | null
-stickyNavHoverBoxShadow | String | null
-
-overlayBackgroundColor | String | rgba(0,0,0,.4)
-overlayTransition | String | all 0.4s ease
-
-colorBoxBackgroundColor | String | null
-colorBoxColor | String | rgba(255,255,255,.8)
-colorBoxBorder | String | 0 0 4px 3px rgba(255,255,255,.8)
-colorBoxTransition | String | all 0.4s ease
-
-  
+inlineStyle | Boolean | true | Enable to style with options, or disable incase of overwriting defaults with external stylesheet.
+navState | Boolean | true | Color switcher(hex/rgb/rgba) navigation
+stickyNavState | Boolean | true | To stick nav while scrolling
+overlayState | Boolean | true | Grid item overlay
+copiedMessageState | Boolean | true | Showed when click on overlay
+navWidth | String | 100% | Naviagtion container width
+navHeight | String | 50px | Naviagtion container height
+navTransition | String | all 0.4s ease | Naviagtion container transition
+navItemsWidth | String | 170px | Navigation list items width
+navItemsHeight | String | navHeight - 10px | Navigation list items height
+navItemsBackgroundColor | String | #ffffff | Navigation list items background color
+navItemsBoxShadow | String | 0 0 0 1px #3b4148 | Navigation list items box shadow
+navItemsTransition | String | all .4s ease-in-out | Navigation list items transition
+navItemsActiveBackgroundColor | String | #3b4148 | Navigation active item background color
+navItemsActiveColor | String | #f1f1f1 | Navigation active item text color
+navItemsActiveBoxShadow | String | null | Navigation active item box shadow
+navItemsActiveBorderRadius | String | null | Navigation active item border radius 
+stickyNavBackgroundColor | String | null | Background color when navigation become sticky
+stickyNavBoxShadow | String | null | Box shdaow when navigation become sticky
+stickyNavTransition | String | all 0.4s ease | Transition for sliding BackgroundColor/BoxShadow/sliding out
+stickyNavHoverBackgroundColor | String | null | Background color when hover on sticky navigation
+stickyNavHoverBoxShadow | String | null | Box shadow when hover on sticky navigation
+overlayBackgroundColor | String | rgba(0,0,0,.4) | Showed when hover on grid item
+overlayTransition | String | all 0.4s ease | Transition of overlay fading
+colorBoxBackgroundColor | String | null | Color value /copied message box background color
+colorBoxColor | String | rgba(255,255,255,.8) | Color value /copied message box text color
+colorBoxBoxShadow | String | 0 0 4px 3px rgba(255,255,255,.8) | Color value /copied message box box-shadow
+colorBoxTransition | String | all 0.4s ease | Color value /copied message box transition
