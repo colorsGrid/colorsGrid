@@ -7,7 +7,7 @@ function colorGrid (selector, options) {
         return value != null || undefined;
     }
 
-    /*
+    /**
      * set default value if value null
      * for string value
     */
