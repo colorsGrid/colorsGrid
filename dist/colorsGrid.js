@@ -283,14 +283,15 @@ function colorGrid (selector, options) {
     };
     //to verticle align text
     colorValueBox.lineHeight = colorValueBox.height;
-
     forIn(colorValueBox, function (key, value) {
         colorBoxStyle += toCss(key, value);
     });
-
+    
+    /**
+     * @selector span.copy-state.copied
+    */
     if (copiedMessageState) {
         copiedMsgStyle = '.copy-state{opacity:0;z-index:-1;} span.copy-state.copied{z-index:1;opacity:1;}.copy-state.copied+span{index:-1;opacity:0;}';
-
         var colorValueBoxTransition = colorValueBox.transition.replace(/\s{1,}/, ' ');
         // get duration of colorValueBox transition to remove copied class on transition end
         copiedMsgDuration = +colorValueBoxTransition.split(' ')[1].replace(/s+/, '') * 2000;
