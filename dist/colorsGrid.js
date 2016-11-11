@@ -173,8 +173,13 @@ function colorGrid (selector, options) {
     
     // switch color-holder/colorGrid-item display to inline block to get correct container height
     // to hide navigation when passing container height
-    // set overlay opacity to 0 to hide color value text on window load
+    // to hide color value text on window load
     document.head.insertAdjacentHTML('beforeend', '<style>.colorsGrid-item,.color-holder{display:inline-block}.colorsGrid-item .overlay {opacity:0;}</style>')
+    
+    
+    var items = {
+        width: defIfNull(options.itemWidth)
+    };
 
     /**
      * @nav outer
@@ -444,8 +449,9 @@ console.log(colorHolderHeight)
             copyState = ths.getElementsByClassName('copy-state')[0];
         // clone this active color pattern value to second span (vcolor value holder)
         ths.getElementsByTagName('span')[1].textContent = ths.getAttribute('data-'+ activePattern +'-value');
-
+        
         ths.addEventListener('click', function() {
+            console.log(ths.getAttribute('data-'+ activePattern +'-value'));
             copyHolder.value = ths.getAttribute('data-'+ activePattern +'-value');
             copyHolder.select();
             document.execCommand('copy');
@@ -463,13 +469,17 @@ console.log(colorHolderHeight)
                 li.classList.remove('active-pattern');
             });
             activePattern = this.getAttribute('data-color-pattern');
+            
+            forEach(gridItemList, function (i, gridItem) {
+                gridItem.getElementsByTagName('span')[1].textContent = gridItem.getAttribute('data-'+ activePattern +'-value');
+            });
             this.classList.add('active-pattern');
         });
     });
     
     if (inlineStyle) {
         (function() {
-            var defaultStyle = "<style type='text/css'>.colorsGrid-item{position:relative;}.color-navigation{position:relative;width: 100%;"+navStyle+"margin:0;text-align:center;}.color-navigation ul{position:absolute;top:0%;width:100%;height:inherit;margin:0;}.color-navigation ul.sticky{z-index:99999;position:fixed;top:0;left:0;margin:0;"+stickyNavStyle+"}.color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}.color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}.color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}.color-navigation li.active-pattern{"+navItemActiveStyle+"}.colorsGrid-item .color-holder {width: 100%;height:100%;margin:auto;} .colorsGrid-item .overlay{position:absolute;top:0;width:100%;height:100%;"+overlayStyle+"text-align:center;}.colorsGrid-item:hover .overlay{opacity:1;}.colorsGrid-item .overlay span{position:absolute;top:50%;left:50%;display:block;"+colorBoxStyle+"transform:translateZ(1px)translate(-50%,-50%);text-align:center;}"+copiedMsgStyle+"</style>";
+            var defaultStyle = "<style type='text/css'>.colorsGrid-item{position:relative;display:inline-block}.color-navigation{position:relative;width: 100%;"+navStyle+"margin:0;text-align:center;}.color-navigation ul{position:absolute;top:0%;width:100%;height:inherit;margin:0;}.color-navigation ul.sticky{z-index:99999;position:fixed;top:0;left:0;margin:0;"+stickyNavStyle+"}.color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}.color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}.color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}.color-navigation li.active-pattern{"+navItemActiveStyle+"}.colorsGrid-item .color-holder {width: 100%;height:100%;margin:auto;} .colorsGrid-item .overlay{position:absolute;top:0;width:100%;height:100%;"+overlayStyle+"text-align:center;}.colorsGrid-item:hover .overlay{opacity:1;}.colorsGrid-item .overlay span{position:absolute;top:50%;left:50%;display:block;"+colorBoxStyle+"transform:translateZ(1px)translate(-50%,-50%);text-align:center;}"+copiedMsgStyle+"</style>";
             document.head.insertAdjacentHTML('beforeend', defaultStyle);
         }());
     }
