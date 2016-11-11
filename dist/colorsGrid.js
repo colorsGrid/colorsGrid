@@ -175,11 +175,6 @@ function colorGrid (selector, options) {
     // to hide navigation when passing container height
     // set overlay opacity to 0 to hide color value text on window load
     document.head.insertAdjacentHTML('beforeend', '<style>.colorsGrid-item,.color-holder{display:inline-block}.colorsGrid-item .overlay {opacity:0;}</style>')
-    
-    
-    var items = {
-        width: defIfNull(options.itemWidth)
-    };
 
     /**
      * @nav outer
