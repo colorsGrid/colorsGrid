@@ -3,11 +3,8 @@
  * github: https://github.com/colorsGrid/colorsgrid
  * description: Colors Grid is a lite javascript plugin will make you able to easily store your favorite colors.
 */
-
 function colorGrid (selector, options) {
-    /**
-     * For boolean value
-    */
+    // For boolean value
     function isNotNull(value) {
         return value != null || undefined;
     }
@@ -20,9 +17,7 @@ function colorGrid (selector, options) {
         return val ? val : def;
     }
 
-    /**
-     * Convert hex to rgb
-    */
+    // Convert hex to rgb
     function hexToRGB(pattern) {
         if (/\s*#/.test(pattern)) {
             var hexArray = pattern.split(''),
@@ -54,17 +49,13 @@ function colorGrid (selector, options) {
         }
     }
 
-    /**
-     * Convert rgb to rgba
-    */
+    // Convert rgb to rgba
     function rgbToRgba(val) {
         var rgba = val.replace(/rgb/i, 'rgba').replace(/\)/, ',1)');
         return rgba;
     }
 
-    /**
-     * loop through array
-    */
+    // loop through array
     function forEach(elem, callBack) {
         var el = elem, len = el.length,
             i = 0;
@@ -83,9 +74,7 @@ function colorGrid (selector, options) {
         }
     }
 
-    /**
-     * loop through object
-    */
+    // loop through object
     function forIn(obj, callBack) {
         for (var key in obj) {
             callBack.call(obj[key], key, obj[key]);
@@ -161,14 +150,12 @@ function colorGrid (selector, options) {
         stickyNavHoverStyle = '',
         overlayStyle = '',
         colorBoxStyle = '',
-         
-        // @type {Number}
+        
         copiedMsgDuration,
 
         navigation,
         navUL,
         navLI;
-
     
     /* 
     ============================
@@ -178,7 +165,7 @@ function colorGrid (selector, options) {
     
     // switch color-holder/colorGrid-item display to inline block to get correct container height
     // to hide navigation when passing container height
-    // to hide color value text on window load
+    // .overlay {opacity:0} to hide color value text on window load
     document.head.insertAdjacentHTML('beforeend', '<style>.colorsGrid-item,.color-holder{display:inline-block}.colorsGrid-item .overlay {opacity:0;}</style>')
     
     
@@ -358,7 +345,6 @@ function colorGrid (selector, options) {
             bottom: getComputedStyle(colorHolderList[0], 'margin-bottom'),
             right: getComputedStyle(colorHolderList[0], 'margin-right')
         };
-console.log(colorHolderHeight)
     /**
      * append colorHolder to colorsGrid-item
      * append overlay to colorsGrid-item
