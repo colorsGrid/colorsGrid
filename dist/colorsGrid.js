@@ -1,5 +1,10 @@
+/*
+ * author: el oz
+ * github: https://github.com/colorsGrid/colorsgrid
+ * description: Colors Grid is a lite javascript plugin will make you able to easily store your favorite colors.
+*/
+
 function colorGrid (selector, options) {
-        
     /**
      * For boolean value
     */
