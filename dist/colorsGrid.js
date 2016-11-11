@@ -164,11 +164,22 @@ function colorGrid (selector, options) {
         navUL,
         navLI;
 
+    
     /* 
     ============================
         plugin Style 
     ============================
     */
+    
+    // switch color-holder/colorGrid-item display to inline block to get correct container height
+    // to hide navigation when passing container height
+    // set overlay opacity to 0 to hide color value text on window load
+    document.head.insertAdjacentHTML('beforeend', '<style>.colorsGrid-item,.color-holder{display:inline-block}.colorsGrid-item .overlay {opacity:0;}</style>')
+    
+    
+    var items = {
+        width: defIfNull(options.itemWidth)
+    };
 
     /**
      * @nav outer
@@ -201,8 +212,8 @@ function colorGrid (selector, options) {
         // to verticle align items
         navItemsMarginTop = '5px',
         navItemHeight = nav.style.height.replace(/\d+/g, (e)=> {
-        return +e - navItemsBottomSpace;
-    });
+            return +e - navItemsBottomSpace;
+        });
 
     var navItems = {
         style: {
@@ -260,7 +271,7 @@ function colorGrid (selector, options) {
     var overlay = {
         overlayHTML: "<div class='overlay'><span class='copy-state'>copied!</span><span></span></div>",
         style: {
-            backgroundColor: defIfNull(options.overlayBackgroundColor, 'rgba(0,0,0,0.4)'),
+            backgroundColor: defIfNull(options.overlayBackgroundColor, 'rgba(0,0,0,.4)'),
             transition: defIfNull(options.overlayTransition, 'all 0.4s ease')
         }
     };
@@ -283,15 +294,14 @@ function colorGrid (selector, options) {
     };
     //to verticle align text
     colorValueBox.lineHeight = colorValueBox.height;
+
     forIn(colorValueBox, function (key, value) {
         colorBoxStyle += toCss(key, value);
     });
-    
-    /**
-     * @selector span.copy-state.copied
-    */
+
     if (copiedMessageState) {
         copiedMsgStyle = '.copy-state{opacity:0;z-index:-1;} span.copy-state.copied{z-index:1;opacity:1;}.copy-state.copied+span{index:-1;opacity:0;}';
+
         var colorValueBoxTransition = colorValueBox.transition.replace(/\s{1,}/, ' ');
         // get duration of colorValueBox transition to remove copied class on transition end
         copiedMsgDuration = +colorValueBoxTransition.split(' ')[1].replace(/s+/, '') * 2000;
@@ -335,22 +345,19 @@ function colorGrid (selector, options) {
     }
 
     var colorHolderList = [].slice.call(doc.getElementsByClassName('color-holder')),
-        colorHolderWidth = colorHolderList[0].clientWidth + 'px',
-        colorHolderHeight = colorHolderList[0].clientHeight + 'px',
+        colorHolderWidth = (colorHolderList[0].clientWidth || 200) + 'px',
+        colorHolderHeight = (colorHolderList[0].clientHeight || 200) + 'px',
         cHM = {
             top: getComputedStyle(colorHolderList[0], 'margin-top'),
             left: getComputedStyle(colorHolderList[0], 'margin-left'),
             bottom: getComputedStyle(colorHolderList[0], 'margin-bottom'),
             right: getComputedStyle(colorHolderList[0], 'margin-right')
         };
-
+console.log(colorHolderHeight)
     /**
      * append colorHolder to colorsGrid-item
      * append overlay to colorsGrid-item
     */
-    
-    // to hide color value text on window load
-    document.head.insertAdjacentHTML('beforeend', '<style>.colorsGrid-item .overlay {opacity:0;}</style>')
     
     forEach(colorHolderList, function(i,e) {
         grid_container.insertAdjacentHTML('beforeend', gridItemHTML);
@@ -364,10 +371,6 @@ function colorGrid (selector, options) {
         gridItem.style.height = colorHolderHeight;
         gridItem.style.margin = cHM.top +' '+ cHM.right +' '+ cHM.right +' '+ cHM.left;
 
-        // make color dimensions relative to continer
-        colorHolderList[i].style.width = '100%';
-        colorHolderList[i].style.height = '100%';
-        colorHolderList[i].style.margin = 'auto';
         colorHolderList[i].style.backgroundColor = options.gridItems[i].hex;
 
         gridItem.appendChild(colorHolderList[i]);
@@ -471,7 +474,7 @@ function colorGrid (selector, options) {
     
     if (inlineStyle) {
         (function() {
-            var defaultStyle = "<style type='text/css'>.colorsGrid-item{position:relative;}.color-navigation{position:relative;width: 100%;"+navStyle+"margin:0;text-align:center;}.color-navigation ul{position:absolute;top:0%;width:100%;height:inherit;margin:0;}.color-navigation ul.sticky{z-index:99999;position:fixed;top:0;left:0;margin:0;"+stickyNavStyle+"}.color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}.color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}.color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}.color-navigation li.active-pattern{"+navItemActiveStyle+"}.colorsGrid-item .overlay{position:absolute;top:0;width:100%;height:100%;"+overlayStyle+"text-align:center;}.colorsGrid-item:hover .overlay{opacity:1;}.colorsGrid-item .overlay span{position:absolute;top:50%;left:50%;display:block;"+colorBoxStyle+"transform:translateZ(1px)translate(-50%,-50%);text-align:center;}"+copiedMsgStyle+"</style>";
+            var defaultStyle = "<style type='text/css'>.colorsGrid-item{position:relative;}.color-navigation{position:relative;width: 100%;"+navStyle+"margin:0;text-align:center;}.color-navigation ul{position:absolute;top:0%;width:100%;height:inherit;margin:0;}.color-navigation ul.sticky{z-index:99999;position:fixed;top:0;left:0;margin:0;"+stickyNavStyle+"}.color-navigation ul.sticky-nav:hover{"+stickyNavHoverStyle+"}.color-navigation li{display:inline-block;"+navItemsStyle+"text-transform:uppercase;cursor:pointer;}.color-navigation li:nth-of-type(2){margin-left:15px;margin-right:15px;}.color-navigation li.active-pattern{"+navItemActiveStyle+"}.colorsGrid-item .color-holder {width: 100%;height:100%;margin:auto;} .colorsGrid-item .overlay{position:absolute;top:0;width:100%;height:100%;"+overlayStyle+"text-align:center;}.colorsGrid-item:hover .overlay{opacity:1;}.colorsGrid-item .overlay span{position:absolute;top:50%;left:50%;display:block;"+colorBoxStyle+"transform:translateZ(1px)translate(-50%,-50%);text-align:center;}"+copiedMsgStyle+"</style>";
             document.head.insertAdjacentHTML('beforeend', defaultStyle);
         }());
     }
