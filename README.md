@@ -10,7 +10,9 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
  * Sticky nav to navigate between patterns(hex/rgb/rgba)
  * Debug mode
  
-## Installation
+## Installation 
+  codepen example http://codepen.io/El-Oz/pen/gLPGyz
+  
   1. #### Setup JavaScript
   Include colorsGrid js file
   ```html
