@@ -20,7 +20,7 @@ function colorGrid (selector, options) {
     // Convert hex to rgb
     function hexToRGB(pattern) {
         if (/\s*#/.test(pattern)) {
-            var hexArray = pattern.split(''),
+            var hexArray = pattern.toLowerCase().split(''),
                 hexArrayLen = hexArray.length - 1,
                 hexPattern = '0123456789abcdef',
                 r1 = hexArray[1],
