@@ -42,7 +42,7 @@ Colors Grid is a lite javascript plugin will make you able to easily store your 
   
 ##Options
  Options   |  Type  |  Default value  |  Description
----------- | :------: | :---------------: | -------------
+---------- | ------ | --------------- | -------------
 gridItems  | Object |      null       | Store your colors at this object with the index of element.
 inlineStyle | Boolean | true | Enable to style with options, or disable incase of overwriting defaults with external stylesheet.
 navState | Boolean | true | Color switcher(hex/rgb/rgba) navigation
