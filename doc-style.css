@@ -168,7 +168,7 @@ h2:hover {text-shadow: 0 0px 1px #999;}
     text-transform: capitalize
 }
 
-.plugin-info button {
+.plugin-info a {
     height: 40px;
     background-color: transparent;
     outline: none;
@@ -181,18 +181,17 @@ h2:hover {text-shadow: 0 0px 1px #999;}
     text-transform: capitalize;
     transition: all .4s ease
 }
-.plugin-info button:hover {
+.plugin-info a:hover {
     box-shadow: 0 0 4px;
     text-shadow: 0 0 1px;
 }
-
-.plugin-info button:nth-of-type(1) {
+.plugin-info a:nth-of-type(1) {
     width: 140px;
     border: 2px solid #0bbcd6;
     color:  #0bbcd6;
     transform: translateX(-10px);
 }
-.plugin-info button:nth-of-type(2) {
+.plugin-info a:nth-of-type(2) {
     width: 190px;
     border: 2px solid #ff8fa4;
     color: #ff8fa4;
