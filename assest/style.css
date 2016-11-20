@@ -1,1 +1,304 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700i,900i');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+html,body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Playfair Display';
+    font-weight: 700;
+    color: #151515;
+}
+
+
+.container {
+    width: 90%;
+    margin: 0 auto
+}
+
+.content {
+    text-align: left
+}
+
+h2 {
+    position: relative;
+    display: inline-block;
+    font-size: 30px;
+    margin: 50px 0 40px;
+    padding: 4px 25px;
+    color: rgba(0,0,0,.85);
+    text-transform: capitalize;
+    transition: all .4s ease;
+    cursor: default;
+    font-style: italic;
+    font-weight: 700
+}
+h2:before,
+h2:after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 45px;
+    height: 1px;
+    background-color: #777;
+    top: 50%;
+}
+h2:before {
+    left: -30px;
+}
+h2:after {
+    right: -30px;
+}
+h2:hover {text-shadow: 0 0px 1px #999;}
+
+.site-header {
+    width: 100%;
+}
+
+.site-header .nav {
+    width: 100%;
+    padding: 0 40px;
+    position: relative;
+    text-align: center;
+    height: 48px;
+    z-index: 999;
+    font-weight: 900
+}
+
+.site-header .nav:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.nav .logo {
+    float: left;
+}
+
+.nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline-block
+}
+
+.nav ul li {
+    letter-spacing: .05em;
+    transition: all 1s ease;
+    float: left;
+}
+.nav ul li a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #151515;
+    transition: all .5s ease-in-out;
+    text-transform: capitalize;
+}
+
+.nav ul li:nth-of-type(3) {
+    margin: 0 51px;
+    background-color: #fff;
+    transform: translateY(19px);
+    font-size: 21px;
+    border-radius: 40px;
+    
+}
+.nav li:nth-of-type(3) a {padding: 5px 15px;}
+
+.d-char {
+    display: inline-block;
+    width: 20px;
+    height: 27px;
+    border: 3px solid;
+    overflow: hidden;
+    vertical-align: bottom;
+    border-radius: 0 9px 9px 0;
+    position: relative;
+}
+.d-char:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 7px;
+    background-color: #fdf06f;
+    height: 10.5px;
+    box-shadow: 7px 0 0 #ff8b8b, 0px 10px 0 #0bbcd6,7px 10px 0 #9357a9;
+}
+
+.nav ul li:hover a {
+    color: #888888
+}
+
+/*==============================================*/
+
+
+.plugin-info {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 60px 0;
+    background-color: rgba(0,0,0,.85);
+    color: rgba(255,255,255,.9);
+    text-align: center;
+}
+
+.header-container {
+    width: 70%;
+    margin: 0 auto;
+}
+.plugin-info h1 {
+    text-transform: capitalize;
+    font-size: 60px;
+    font-style: italic;
+}
+.plugin-info p {
+    margin-top: 8px;
+    padding-left: 10px;
+    font-size: 1.1em;
+    letter-spacing: 1px
+}
+.plugin-info p:first-letter {
+    text-transform: capitalize
+}
+
+.plugin-info button {
+    height: 40px;
+    background-color: transparent;
+    outline: none;
+    border-radius: 20px;
+    cursor: default;
+    margin-top: 34px;
+    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: .03em;
+    text-transform: capitalize;
+    transition: all .4s ease
+}
+.plugin-info button:hover {
+    box-shadow: 0 0 4px;
+    text-shadow: 0 0 1px;
+}
+
+.plugin-info button:nth-of-type(1) {
+    width: 140px;
+    border: 2px solid #0bbcd6;
+    color:  #0bbcd6;
+    transform: translateX(-10px);
+}
+.plugin-info button:nth-of-type(2) {
+    width: 190px;
+    border: 2px solid #ff8fa4;
+    color: #ff8fa4;
+    transform: translateX(10px);
+}
+
+.fork {
+    position: relative;
+    overflow: hidden;
+}
+.fork:before {
+    content: 'gitHub';
+    position: absolute;
+    top: 35%;
+    right: -15px;
+    width: 90px;
+    height: 17px;
+    background-color:#ff8fa4;
+    line-height: 17px;
+    color: #fff;
+    font-size: 9px;
+    transform: rotate(35deg) translateY(-50%);
+}
+
+.doc {
+    width:100%;
+    height: 100%;
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    padding-top: 63px;
+    font-size: 1.05em;
+    letter-spacing: .05em;
+    position: relative
+}
+
+thead {
+    transition: box-shadow 1s ease, transform 1s ease;
+    box-shadow: 0 1px 3px 1px transparent;
+}
+
+.absolute-thead {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.fixed-thead {
+    position: fixed;
+    top: 0;
+    left: auto;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 1px #999;
+}
+
+table, th, td, tr {
+    border-collapse: collapse;
+    padding: 20px;
+}
+tr {
+    box-shadow: 0 0 0 .5px #c0c2ce;
+}
+
+tr:nth-of-type(even) {
+    background-color: rgba(80,80,80,.1)
+}
+
+code {
+    background-color: #dadfdf
+}
+
+td:nth-of-type(2) {
+    text-transform: capitalize
+}
+
+/*================== setup ===================*/
+
+.setup {
+    text-align: center;
+}
+
+.setup > ol li {
+    font-size: 20px;
+}
+
+.setup pre {
+    margin: 20px 0;
+    padding: 10px !important;
+    border: 1px solid #999 !important
+}
+
+footer {
+    width: 100%;
+    height: 70px;
+    margin-top: 100px;
+    background-color: #1b1d1c;
+    text-align: center;
+}
+
+footer p, 
+footer svg {
+    display: inline-block;
+    line-height: 70px;
+    vertical-align: middle;
+}
+
+footer svg {fill: #f1f1f1;}
