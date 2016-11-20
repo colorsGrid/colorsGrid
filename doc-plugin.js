@@ -23,7 +23,7 @@ window.onload = function () {
     }
     
     while(--tnl >= 0) {
-        targetNav[tnl].addEventListener('click', function () {
+        targetNav[tnl].addEventListener('click', function (e) {
 	    e.preventDefault();
             var target = this.id,
                 targetTop = document.getElementsByClassName(target)[0].offsetTop;
