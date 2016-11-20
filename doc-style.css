@@ -168,7 +168,8 @@ h2:hover {text-shadow: 0 0px 1px #999;}
     text-transform: capitalize
 }
 
-.plugin-info a {
+.plugin-info button {
+    position: relative;
     display: inline-block;
     vertical-align: middle;
     height: 40px;
@@ -184,17 +185,22 @@ h2:hover {text-shadow: 0 0px 1px #999;}
     text-transform: capitalize;
     transition: all .4s ease
 }
-.plugin-info a:hover {
+
+.plugin-info button a {
+    position: absolute;
+    top:0;left:0;bottom:0;right:0;
+}
+.plugin-info button:hover {
     box-shadow: 0 0 4px;
     text-shadow: 0 0 1px;
 }
-.plugin-info a:nth-of-type(1) {
+.plugin-info button:nth-of-type(1) {
     width: 140px;
     border: 2px solid #0bbcd6;
     color:  #0bbcd6;
     transform: translateX(-10px);
 }
-.plugin-info a:nth-of-type(2) {
+.plugin-info button:nth-of-type(2) {
     width: 190px;
     border: 2px solid #ff8fa4;
     color: #ff8fa4;
