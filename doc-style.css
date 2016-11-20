@@ -172,6 +172,7 @@ h2:hover {text-shadow: 0 0px 1px #999;}
     display: inline-block;
     vertical-align: middle;
     height: 40px;
+    line-height: 40px;
     background-color: transparent;
     outline: none;
     border-radius: 20px;
