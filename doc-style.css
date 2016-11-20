@@ -169,6 +169,7 @@ h2:hover {text-shadow: 0 0px 1px #999;}
 }
 
 .plugin-info a {
+    display: inline-block;
     height: 40px;
     background-color: transparent;
     outline: none;
