@@ -3,7 +3,7 @@
   > V 1.0
   
 ### Description
-Colors Grid is a lite javascript plugin will make you able to easily store your favorite colors/switch between patterns and copy it with one click.
+Colors Grid is a lite javascript plugin to store your favorite colors and switch between patterns.
 
 ## Features
  * Copy stored color with one click
