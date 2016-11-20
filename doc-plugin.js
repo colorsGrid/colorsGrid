@@ -24,9 +24,10 @@ window.onload = function () {
     
     while(--tnl >= 0) {
         targetNav[tnl].addEventListener('click', function () {
+	    e.preventDefault();
             var target = this.id,
                 targetTop = document.getElementsByClassName(target)[0].offsetTop;
-            scrollTo(targetTop)
+            scrollTo(targetTop);
         });
     }
     
