@@ -442,7 +442,6 @@ function colorGrid (selector, options) {
         ths.getElementsByTagName('span')[1].textContent = ths.getAttribute('data-'+ activePattern +'-value');
         
         ths.addEventListener('click', function() {
-            console.log(ths.getAttribute('data-'+ activePattern +'-value'));
             copyHolder.value = ths.getAttribute('data-'+ activePattern +'-value');
             copyHolder.select();
             document.execCommand('copy');
