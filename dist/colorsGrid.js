@@ -14,7 +14,7 @@ function colorGrid (selector, options) {
      * for string value
     */
     function defIfNull(val, def) {
-        return val ? val : def;
+        return val || def;
     }
 
     // Convert hex to rgb
@@ -30,21 +30,25 @@ function colorGrid (selector, options) {
                 b1 = hexArray[5],
                 b2 = hexArray[6],
                 r, g, b;
-
-            function getIndex(p) {return hexPattern.indexOf(p)}
+            if (hexArrayLen === 3) {
+                r1 = hexArray[1];
+                g1 = hexArray[2];
+                b1 = hexArray[3]
+            }
+            function indexOf(list ,elem) {return list.indexOf(elem)}
             // if shortcode
             if (hexArrayLen === 3) {
-                r = Math.max( ( (getIndex(r1)+1) * (getIndex(r2)+1) - 1) , 0);
-                g = Math.max( ( (getIndex(g1)+1) * (getIndex(g2)+1) - 1) , 0);
-                b = Math.max( ( (getIndex(b1)+1) * (getIndex(b2)+1) - 1) , 0);
+                r = indexOf(hexPattern ,r1) * 17;
+                g = indexOf(hexPattern ,g1) * 17;
+                b = indexOf(hexPattern ,b1) * 17;
                 return 'rgb(' + r + ',' + g + ',' + b + ')';
             }
 
             if (hexArrayLen === 6) {
-                r = (getIndex(r1) * 16) + getIndex(r2);
-                g = (getIndex(g1) * 16) + getIndex(g2);
-                b = (getIndex(b1) * 16) + getIndex(b2);
-                return 'rgb(' + r + ',' + g + ',' + b +  ')';
+                r = (indexOf(hexPattern ,r1) * 16) + indexOf(hexPattern ,r2);
+                g = (indexOf(hexPattern ,g1) * 16) + indexOf(hexPattern ,g2);
+                b = (indexOf(hexPattern ,b1) * 16) + indexOf(hexPattern ,b2);
+                return 'rgb(' + r + ',' + g + ',' + b + ')';
             }
         }
     }
@@ -85,16 +89,25 @@ function colorGrid (selector, options) {
      * convert object key/value to css property if value not null
     */
     function toCss(key, value) {
-        var p = '', css = '';
-        if (value) {
-            if (/[A-Z]+/g.test(key)) {
-                p = key.replace(/[A-Z]/g, function (e) { 
-                      return '-' + e.toLowerCase(); 
-                });
-                css = p + ": " + value + ";";
-            } else {
-                css = key + ": " + value + ";";
-            }
+    var p = '', css = '';
+    if (value) {
+		if (!/^[A-Z]/g.test(key)) {
+			/[A-Z]/g.test(key) ? key = key.replace(/[A-Z]/g, function (e) { 
+              return '-' + e.toLowerCase(); 
+        	}) : key;
+		} else {
+            var temp = '';
+                while(/^[A-Z]/.test(key)) {
+                    temp += key.substr(0,1);
+                    key = key.substr(1);
+                }
+                
+              	key = '-'+temp.toLowerCase()+'-' + key.replace(/[A-Z]/g, function (e) { 
+              		return '-' + e.toLowerCase(); 
+        		});
+		    }
+        
+            css = key + ": " + value + ";";
         }
         return css;
     }
