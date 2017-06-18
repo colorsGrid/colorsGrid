@@ -37,11 +37,10 @@ Colors Grid is a lite javascript plugin to store your favorite colors and switch
     colorsGrid(document.getElementById('container').getElementByClassName('item'), { options });
   ```
   
+## Options
 
-  
-##Options
- Options   |  Type  |  Default value  |  Description
----------- | ------ | --------------- | -------------
+ Options   |  Type    |  Default value    |  Description
+---------- | :------: | :---------------: | -------------
 gridItems  | Object |      null       | Store your colors at this object with the index of element.
 inlineStyle | Boolean | true | Enable to style with options, or disable incase of overwriting defaults with external stylesheet.
 navState | Boolean | true | Color switcher(hex/rgb/rgba) navigation
