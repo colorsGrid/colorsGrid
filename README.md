@@ -19,23 +19,23 @@ Colors Grid is a lite javascript plugin to store your favorite colors and switch
   ```
   
   2. #### Setup HTML
-    ```html
+  ```html
     <div id="container"></div>
-    ```
-    ```javascript
+  ```
+  ```javascript
     colorsGrid(document.getElementById('container'), { options });
-    ```
+  ```
     
     Or if there is already items 
-    ```html
+  ```html
     <div id="container">
       <div class="item"></div>
-      ...
+         ...
     </div>
-    ```
-    ```javascript
+  ```
+  ```javascript
     colorsGrid(document.getElementById('container').getElementByClassName('item'), { options });
-    ```
+  ```
   
 
   
